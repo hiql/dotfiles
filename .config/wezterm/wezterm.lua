@@ -16,32 +16,24 @@ end
 local function font(opts)
 	return wezterm.font_with_fallback({
 		opts,
-		{ family = "JetBrainsMono Nerd Font Mono", scale = 0.9 },
+		{ family = "MesloLGSDZ Nerd Font Mono" },
 	})
 end
 
 config.default_prog = { "/opt/homebrew/bin/fish", "-l" }
-config.default_workspace = "devdog"
 
-config.font = font({ family = "MesloLGSDZ Nerd Font Mono" })
+config.font = font({ family = "CommitMono Nerd Font Mono" })
 config.font_size = 12.0
-config.harfbuzz_features = { "zero", "cv05", "cv02", "ss05", "ss04" }
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 config.initial_cols = 180
 config.initial_rows = 48
-
-config.window_padding = {
-	left = "0.5cell",
-	right = "0.5cell",
-	top = "0.25cell",
-	bottom = "0.25cell",
-}
 
 config.window_frame = {
 	-- The font used in the tab bar.
 	-- Roboto Bold is the default; this font is bundled
 	-- with wezterm.
-	-- Whatever font is selected hqere, it will have the
+	-- Whatever font is selected here, it will have the
 	-- main font setting appended to it to pick up any
 	-- fallback fonts you may have used there.
 	font = font({ family = "MesloLGSDZ Nerd Font Mono", weight = "Bold" }),
@@ -58,29 +50,28 @@ config.macos_window_background_blur = 20
 config.adjust_window_size_when_changing_font_size = false
 config.enable_scroll_bar = false
 config.scrollback_lines = 50000
-config.cell_width = 0.9
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.show_tab_index_in_tab_bar = true
-config.tab_max_width = 32
+config.tab_max_width = 500
 config.hide_tab_bar_if_only_one_tab = true
-config.command_palette_font_size = 12
+config.command_palette_font_size = 14
 
-config.color_scheme = "Catppuccin Macchiato (Gogh)"
+config.color_scheme = "nightfox"
 config.bold_brightens_ansi_colors = true
 
 config.colors = {
 	tab_bar = {
 		-- The color of the strip that goes along the top of the window
 		-- (does not apply when fancy tab bar is in use)
-		background = "#0b0022",
+		background = "#11111B",
 
 		-- The active tab is the one that has focus in the window
 		active_tab = {
 			-- The color of the background area for the tab
-			bg_color = "#3c1361",
+			bg_color = "#CBA6F7",
 			-- The color of the text for the tab
-			fg_color = "#c0c0c0",
+			fg_color = "#11111B",
 
 			-- Specify whether you want "Half", "Normal" or "Bold" intensity for the
 			-- label shown for this tab.
@@ -94,7 +85,7 @@ config.colors = {
 
 			-- Specify whether you want the text to be italic (true) or not (false)
 			-- for this tab.  The default is false.
-			italic = false,
+			italic = true,
 
 			-- Specify whether you want the text to be rendered with strikethrough (true)
 			-- or not for this tab.  The default is false.
@@ -103,8 +94,8 @@ config.colors = {
 
 		-- Inactive tabs are the tabs that do not have focus
 		inactive_tab = {
-			bg_color = "#1b1032",
-			fg_color = "#808080",
+			bg_color = "#181825",
+			fg_color = "#909090",
 
 			-- The same options that were listed under the `active_tab` section above
 			-- can also be used for `inactive_tab`.
@@ -114,8 +105,7 @@ config.colors = {
 		-- moves over inactive tabs
 		inactive_tab_hover = {
 			bg_color = "#3b3052",
-			fg_color = "#909090",
-			italic = true,
+			fg_color = "#CDD6F4",
 
 			-- The same options that were listed under the `active_tab` section above
 			-- can also be used for `inactive_tab_hover`.
@@ -428,30 +418,23 @@ wezterm.on("update-status", function(window, pane)
 		table.insert(cells, mode)
 	end
 
-	local date = wezterm.strftime("%-d-%b-%Y %a")
-	table.insert(cells, date)
+	-- local active_workspace = window:active_workspace()
+	-- local workspace = wezterm.format({
+	-- 	{ Text = utf8.char("0xeb44") .. " " .. active_workspace },
+	-- })
+	-- table.insert(cells, workspace)
 
-	local time = wezterm.strftime("%r")
-	table.insert(cells, time)
-
-	local active_workspace = window:active_workspace()
-	local workspace = wezterm.format({
-		{ Text = wezterm.nerdfonts.md_dog_side .. " " .. active_workspace },
-	})
-	table.insert(cells, workspace)
-
-	local SOLID_LEFT_ARROW = ""
-	local FIRST_LEFT_ARROW = ""
+	local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
 	-- Color palette for the backgrounds of each cell
 	local colors = {
-		"#3c1361",
-		"#52307c",
-		"#663a82",
-		"#7c5295",
-		"#b491c8",
+		"#f38ca9",
+		"#d57c95",
+		"#b86c81",
+		"#9b5c6d",
+		"#804d5b",
 	}
 	-- Foreground color for the text across the fade
-	local text_fg = "#c0c0c0"
+	local text_fg = "#313244"
 
 	-- The elements to be formatted
 	local elements = {}
@@ -463,7 +446,7 @@ wezterm.on("update-status", function(window, pane)
 		local cell_no = num_cells + 1
 		if cell_no == 1 then
 			table.insert(elements, { Foreground = { Color = colors[cell_no] } })
-			table.insert(elements, { Text = FIRST_LEFT_ARROW })
+			table.insert(elements, { Text = SOLID_LEFT_ARROW })
 		end
 		table.insert(elements, { Foreground = { Color = text_fg } })
 		table.insert(elements, { Background = { Color = colors[cell_no] } })
