@@ -43,9 +43,9 @@ config.window_frame = {
     font_size = 12.0,
 }
 
-config.window_decorations = "RESIZE"
+config.window_decorations = "TITLE|RESIZE"
 config.window_close_confirmation = "AlwaysPrompt"
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.98
 config.macos_window_background_blur = 20
 config.adjust_window_size_when_changing_font_size = false
 config.enable_scroll_bar = false
