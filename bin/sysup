@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# A simple shell script for upgrading and cleaning system, only running under MacOS
+#
+
+echo "Start upgrading..."
+
+brew upgrade
+rustup update
+npm update --location=global
+tldr --update
+
+if [[ $1 == "--clear" ]]; then
+        echo "Start cleaning..."
+
+        brew cleanup --prune=0
+        npm cache clean -f
+
+        # Clean shell command history
+        history -p
+        history -c
+
+        # Remove useless files
+        rm -rf ~/.viminfo
+        rm -rf ~/.zsh_history
+        rm -rf ~/.bash_history
+        rm -rf ~/.python_history
+        rm -rf ~/.node_repl_history
+fi
+
+echo "Done!"
