@@ -71,6 +71,10 @@ end
 # java
 set -gx JAVA_HOME (/usr/libexec/java_home)
 
+if test -d $HOME/.jenv/bin
+    fish_add_path $HOME/.jenv/bin
+end
+
 # go
 set -gx GOPATH $HOME/go
 set -gx GOPROXY https://goproxy.io,direct
@@ -129,10 +133,6 @@ if type -q zoxide
     zoxide init fish | source
 end
 
-if type -q direnv
-    direnv hook fish | source
-end
-
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
@@ -141,5 +141,9 @@ if status is-interactive
 
     # I don't need any greeting for new shells
     set fish_greeting ""
+
+    # Jenv
+    jenv init - | source
+    jenv enable-plugin export > /dev/null
 
 end
