@@ -1,7 +1,7 @@
 --smart-case
 --hidden
 --max-columns=150
---max-column-preview
+--max-columns-preview
 --multiline-dotall
 --glob=!.git/*
 --glob=!package-lock.json
