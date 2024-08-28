@@ -4,7 +4,7 @@ My personal dotfiles
 
 **Warning**: Don’t blindly use my settings. Just as a reference!
 
-![terminal screenshot](./screenshot.png)
+![terminal screenshot](screenshot.png)
 
 ## Apps
 
