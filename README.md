@@ -41,6 +41,7 @@ My personal dotfiles
   - [procs](https://github.com/dalance/procs) - `ps` replacement
   - [bat](https://github.com/sharkdp/bat) - `cat` replacement
   - [fd](https://github.com/sharkdp/fd) - `find` replacement
+  - [gping](https://github.com/orf/gping) - Ping, but with a graph
   - [fzf](https://github.com/junegunn/fzf) - Command-line fuzzy finder
   - [ripgrep](https://github.com/BurntSushi/ripgrep) - Search tool
   - [hurl](https://hurl.dev) - Run and test HTTP requests
