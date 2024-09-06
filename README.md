@@ -29,6 +29,7 @@ My personal dotfiles
   - [font-jetbrains-mono-nerd-font](https://www.jetbrains.com/lp/mono) - JetBrains Mono font
   - [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) - Nerd Fonts
 - Git
+  - [git-lfs](https://git-lfs.com) - Git extension for versioning large files
   - [gitui](https://github.com/extrawurst/gitui) - Git ui for the terminal
   - [onefetch](https://github.com/o2sh/onefetch) - Git information tool
   - [delta](https://github.com/dandavison/delta) - A syntax-highlighting pager for git, diff, grep, and blame output
