@@ -340,9 +340,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		zoomed = ZOOM_IN .. " "
 	end
 
-	if string.len(title) > max_width - 6 then
-		title = wezterm.truncate_right(title, max_width - 12) .. " ⋯"
-	end
+	title = wezterm.truncate_right(title, max_width - 8)
 
 	return {
 		{ Background = { Color = leading_bg } },
