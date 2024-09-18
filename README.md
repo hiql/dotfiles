@@ -62,3 +62,4 @@ My personal dotfiles
   - [unar](https://theunarchiver.com/command-line) - Command-line unarchiving tools supporting multiple formats
   - [jenv](https://www.jenv.be) - Manage your Java environment
   - [bandwhich](https://github.com/imsnif/bandwhich) - Terminal bandwidth utilization tool
+  - [tokei](https://github.com/XAMPPRocky/tokei) - Count your code
