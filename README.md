@@ -63,3 +63,4 @@ My personal dotfiles
   - [jenv](https://www.jenv.be) - Manage your Java environment
   - [bandwhich](https://github.com/imsnif/bandwhich) - Terminal bandwidth utilization tool
   - [tokei](https://github.com/XAMPPRocky/tokei) - Count your code
+  - [ctop](https://ctop.sh) - concise commandline monitoring for containers
