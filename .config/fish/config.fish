@@ -2,11 +2,7 @@ set -gx LANG en_US
 set -gx LC_ALL en_US.UTF-8
 set -gx LC_COLLATE C
 set -gx TERM xterm-256color
-
-# Editor should nvim
 set -gx EDITOR nvim
-
-# Shell
 set -gx SHELL /opt/homebrew/bin/fish
 
 # fisher
@@ -25,33 +21,6 @@ end
 set -g fish_prompt_pwd_dir_length 1
 set -g fish_prompt_pwd_full_dirs 3
 
-# Colors for Fish shell
-set -l comment 768390
-set -l selection 29414f
-# Shell highlight groups
-# (https://fishshell.com/docs/current/interactive.html#variables-color)
-
-set -g fish_color_normal brwhite # Default text
-set -g fish_color_command brwhite # 'cd', 'ls', 'echo'
-# set -g fish_color_keyword red  # 'if'   NOTE: default = $fish_color_command
-set -g fish_color_quote green # "foo" in 'echo "foo"'
-# set -g fish_color_redirection magenta  # '>/dev/null'   NOTE: default = magenta
-# set -g fish_color_end blue  # ; in 'cmd1; cmd2'   NOTE: default = blue
-# set -g fish_color_error red  # incomplete / non-existent commands   NOTE: default = red
-set -g fish_color_param blue # xvf in 'tar xvf', --all in 'ls --all'
-set -g fish_color_comment $comment # '# a comment' # Question: Where does default come from if not set?
-# set -g fish_color_selection --background=$selection # Run 'fish_vi_key_bindings', type some text, <Esc> then 'v' to select text
-set -g fish_color_operator red # * in 'ls ./*'
-# set -g fish_color_escape cyan  # ▆ in 'echo ▆' NOTE: default = cyan
-set -g fish_color_autosuggestion $comment # Appended virtual text, e.g. 'cd  ' displaying 'cd ~/some/path'
-# set -g fish_color_search_match --background=red   # TODO: How to trigger?
-
-set -g fish_pager_color_completion $fish_color_param # List of suggested items for 'ls <Tab>'
-set -g fish_pager_color_description green # (command) in list of commands for 'c<Tab>'
-set -g fish_pager_color_prefix red --underline # Leading 'c' in list of completions for 'c<Tab>'
-set -g fish_pager_color_progress brwhite # '…and nn more rows' for 'c<Tab>'
-set -g fish_pager_color_selected_background --background=$selection # Cursor when <Tab>ing through 'ls <Tab>'
-
 # homebrew
 if test (uname -m) = arm64
     set -gx BREW_BASE /opt/homebrew
@@ -62,6 +31,8 @@ end
 if test -e $BREW_BASE/bin/brew
     eval ($BREW_BASE/bin/brew shellenv)
 end
+
+set -gx LIBRARY_PATH $BREW_BASE/lib
 
 # rust
 if test -d $HOME/.cargo/bin
@@ -75,11 +46,8 @@ if test -d $HOME/.jenv/bin
     fish_add_path $HOME/.jenv/bin
 end
 
-# go
-set -gx GOPATH $HOME/go
-set -gx GOPROXY https://goproxy.io,direct
-set -gx GOPRIVATE "github.com/hiql/*"
-fish_add_path $GOPATH/bin
+# node
+set --universal nvm_default_version lts/jod
 
 # docker
 if test -d $HOME/.docker/bin
@@ -109,9 +77,6 @@ set -gx FZF_DEFAULT_OPTS '--color query:regular,hl:#E6A64C,hl+:bold:#E6A64C,prom
 set -gx FZF_PREVIEW_FILE_CMD "bat --style=numbers --color=always --line-range :500"
 set -gx FZF_LEGACY_KEYBINDINGS 0
 
-set -gx LIBRARY_PATH $BREW_BASE/lib
-
-
 # aliases
 alias ll="ls -alhG"
 alias rm="rm -i"
@@ -140,7 +105,7 @@ if status is-interactive
     fish_vi_key_bindings
 
     # I don't need any greeting for new shells
-    set fish_greeting ""
+    set fish_greeting "Hello mate, welcome to Fish!"
 
     # Jenv
     jenv init - | source
