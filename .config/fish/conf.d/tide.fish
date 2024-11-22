@@ -1,3 +1,3 @@
-set -g tide_status_bg_color 343942
-set -g tide_status_bg_color_failure cf222e
-set -g tide_status_icon_failur
+set -g tide_status_icon_failure
+set -g tide_jobs_number_threshold 2
+set -g tide_right_prompt_items status jobs context cmd_duration time
