@@ -1,6 +1,0 @@
-theme = "nightfox"
-
-[editor]
-text-width = 120
-true-color = true
-undercurl = true
