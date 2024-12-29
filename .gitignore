@@ -1,0 +1,9 @@
+.DS_Store
+tmux/plugins/
+raycast
+fzf
+history.txt
+lazy-lock.json
+lazyvim.json
+.zcompcache/
+.zcompdump

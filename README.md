@@ -4,12 +4,17 @@ My personal dotfiles
 
 **Warning**: Don’t blindly use my settings. Just as a reference!
 
-![terminal screenshot](screenshot.jpg)
+![terminal screenshot](images/screenshot.jpg)
+
+## Install with stow:
+```bash
+stow .
+```
 
 ## Apps
 
-- [wezterm](https://wezfurlong.org/wezterm) - Terminal emulator and multiplexer
-- [joshuto](https://github.com/kamiyaa/joshuto) - Ranger-like terminal file manager
+- [Ghostty](https://ghostty.org/) - Terminal emulator
+- [Yazi](https://yazi-rs.github.io/) - Ranger-like terminal file manager
 - System Info
   - [bottom](https://github.com/ClementTsang/bottom) - System monitor for the terminal
   - [fastfetch](https://github.com/fastfetch-cli/fastfetch) - System information tool

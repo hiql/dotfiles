@@ -1,0 +1,10 @@
+--target=~/.config
+--ignore=.stowrc
+--ignore=.DS_Store
+--ignore=images/*
+--ignore=LICENSE
+--ignore=README.md
+--ignore=setup.sh
+--ignore=.zshenv
+--ignore=.gitignore
+--ignore=.git/*
