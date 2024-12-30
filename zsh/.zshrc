@@ -18,22 +18,16 @@ if [[ -n "$ZSH_DEBUG" ]]; then
   zmodload zsh/zprof
 fi
 
+# general
 export TERM="xterm-256color"
-export EDITOR=nvim
-
-# language
+export COLORTERM="truecolor"
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+export EDITOR="vim"
+export VISUAL="$EDITOR"
+export PAGER="less -F -X"
 
-setopt prompt_subst
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-compinit
-source <(kubectl completion zsh)
-complete -C '/usr/local/bin/aws_completer' aws
-
-# history options
+# history
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=50000
 export SAVEHIST=$HISTSIZE
@@ -43,12 +37,34 @@ setopt hist_ignore_all_dups
 setopt append_history
 setopt share_history
 
+# completion
+setopt prompt_subst
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-suffixes
+zstyle ':completion:*' expand prefix suffix
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+# source <(docker completion zsh)
+# source <(kubectl completion zsh)
+# complete -C '/usr/local/bin/aws_completer' aws
+
+# vi mode
+bindkey -v
+
 # export
 function addToPath {
   PATH="$1:$PATH"
 }
 
+# user binaries
 addToPath $HOME/bin
+
+# homebrew
+[[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
+[[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
 
 # starship
 eval "$(starship init zsh)"
@@ -66,6 +82,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 --color=selected-bg:#45475a \
+--color=gutter:-1 \
 --multi"
 
 # zoxide
@@ -81,7 +98,7 @@ alias cp="cp -i"
 
 if type eza >/dev/null; then
 	alias ll='eza -l --git --icons=auto'
-	alias la='eza -la --git --icons=auto'
+	alias lla='eza -la --git --icons=auto'
 	alias tree='eza --tree --git --icons=auto'
 fi
 
@@ -122,8 +139,7 @@ if type jenv > /dev/null; then
     }
 fi
 
-
-# pyenv
+# python
 # Try to find pyenv, if it's not on the path
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 if ! type pyenv > /dev/null && [ -f "${PYENV_ROOT}/bin/pyenv" ]; then
@@ -150,64 +166,14 @@ fi
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-export NVM_DIR="$HOME/.config/nvm"
+export NVM_DIR="$HOME/.nvm"
 nvm() {
-    echo "Lazy loading nvm..."
-
-    unfunction "$0"
-
-    [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
-
-    $0 "$@"
+    unset -f nvm
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+    nvm $@
 }
 
-lazynvm() {
-	unset -f nvm
-	export NVM_DIR="$HOME/.config/nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
-nvm() {
-  lazynvm
-  nvm $@
-}
-node() {
-  lazynvm
-  node $@
-}
-npm() {
-  lazynvm
-  npm $@
-}
-npx() {
-  lazynvm
-  npm $@
-}
-
-# # Automatically switch Node version if .nvmrc found
-# autoload -U add-zsh-hook
-
-# load-nvmrc() {
-#   local nvmrc_path
-#   nvmrc_path="$(nvm_find_nvmrc)"
-
-#   if [ -n "$nvmrc_path" ]; then
-#     local nvmrc_node_version
-#     nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-#     if [ "$nvmrc_node_version" = "N/A" ]; then
-#       nvm install > /dev/null
-#     elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
-#       nvm use > /dev/null
-#     fi
-#   elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
-#     nvm use default > /dev/null
-#   fi
-# }
-
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
 
 # # default Shell(zsh) => tmux => zsh
 # if [[ $SHLVL == 1 && $TMUX == "" ]]; then
@@ -235,9 +201,6 @@ function fzf-history-selection() {
 
 zle -N fzf-history-selection
 bindkey '^R' fzf-history-selection
-
-
-
 
 
 

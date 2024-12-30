@@ -1,5 +1,6 @@
 .DS_Store
 tmux/plugins/
+yazi/plugins/
 raycast
 fzf
 history.txt
@@ -7,3 +8,4 @@ lazy-lock.json
 lazyvim.json
 .zcompcache/
 .zcompdump
+.zsh_sessions/
