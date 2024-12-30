@@ -1,15 +1,15 @@
 theme = catppuccin-mocha
 
-font-size = 14
+font-size = 18
 font-family = JetBrainsMono Nerd Font Mono
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-background-opacity = 0.97
+background-opacity = 0.95
 background-blur-radius = 20
-window-padding-x = 5
-window-padding-y = 5
+window-padding-x = 15
+window-padding-y =15
 window-padding-balance = true
 adjust-cell-width = -5%
 mouse-hide-while-typing = true

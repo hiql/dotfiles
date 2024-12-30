@@ -4,7 +4,7 @@ My personal dotfiles
 
 **Warning**: Don’t blindly use my settings. Just as a reference!
 
-![terminal screenshot](images/screenshot.jpg)
+![terminal screenshot](images/screenshot-ghostty.jpg)
 
 ## Install with stow:
 ```bash
