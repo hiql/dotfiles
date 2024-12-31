@@ -47,12 +47,14 @@ zstyle ':completion:*' expand prefix suffix
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
+
 # source <(docker completion zsh)
 # source <(kubectl completion zsh)
 # complete -C '/usr/local/bin/aws_completer' aws
 
 # vi mode
 bindkey -v
+export KEYTIMEOUT=1
 
 # export
 function addToPath {
@@ -83,6 +85,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 --color=selected-bg:#45475a \
 --color=gutter:-1 \
+--no-separator \
 --multi"
 
 # zoxide
@@ -116,6 +119,9 @@ bindkey '^u' autosuggest-toggle
 bindkey '^L' vi-forward-word
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
+
+# thefuck
+eval "$(thefuck --alias)"
 
 # rust
 if [[ -d "$HOME/.cargo" ]]; then
@@ -161,18 +167,22 @@ fi
 
 
 # Node Version Manager 
-# export NVM_DIR="$HOME/.config/nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
+# Extracted from https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html
+# Defer initialization of nvm until nvm, node or a node-dependent command is
+# run. Ensure this block is only run once if .bashrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
 export NVM_DIR="$HOME/.nvm"
-nvm() {
-    unset -f nvm
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence __init_nvm)" = "__init_nvm" ]; then
+  declare -a __node_commands=('nvm' 'node' 'npm' 'npx' 'pnpm' 'yarn')
+  function __init_nvm() {
+    for i in "${__node_commands[@]}"; do unalias $i; done
     [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm
     [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-    nvm $@
-}
+    unset __node_commands
+    unset -f __init_nvm
+  }
+  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi
 
 
 # # default Shell(zsh) => tmux => zsh
