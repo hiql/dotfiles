@@ -59,7 +59,7 @@ return {
 		"akinsho/bufferline.nvim",
 		event = "VeryLazy",
 		keys = {
-			{ "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+			{ "<Tab>",   "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
 			{ "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
 		},
 		opts = {
@@ -134,6 +134,25 @@ return {
 	},
 
 	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+			"TmuxNavigatorProcessList",
+		},
+		keys = {
+			{ "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
+	},
+
+	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -154,11 +173,11 @@ return {
 			dashboard = {
 				preset = {
 					header = [[
-                   ,,         
+                   ,,
       __         o-°°|\_____/)
  (___()'`; NEOVIM \_/|_)     )
- /,    /`            \  __  / 
- \\"--\\             (_/ (_/  
+ /,    /`            \  __  /
+ \\"--\\             (_/ (_/
  Talk is cheap, show me your code.
 ]],
 				},

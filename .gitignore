@@ -1,6 +1,7 @@
 .DS_Store
 tmux/plugins/
 yazi/plugins/
+yazi/package.toml
 raycast
 fzf
 history.txt

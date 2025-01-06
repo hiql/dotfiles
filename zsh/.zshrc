@@ -19,12 +19,10 @@ if [[ -n "$ZSH_DEBUG" ]]; then
 fi
 
 # general
-export TERM="xterm-256color"
-export COLORTERM="truecolor"
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export EDITOR="vim"
-export VISUAL="$EDITOR"
+export VISUAL=$EDITOR
 export PAGER="less -F -X"
 
 # history
@@ -78,14 +76,15 @@ source <(fzf --zsh)
 # ripgrep
 export RIPGREP_CONFIG_PATH="~/.config/ripgrep/ripgreprc"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-# export FZF_DEFAULT_OPTS='--reverse --no-separator --color query:regular,hl:#E6A64C,hl+:bold:#E6A64C,prompt:#E0A8E1,bg+:#561E57,gutter:-1,info:#565B8F,separator:#262840,scrollbar:#565B8F'
 export FZF_DEFAULT_OPTS=" \
+--color=query:regular \
 --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
---color=selected-bg:#45475a \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f9e2af \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:bold:#f38ba8 \
+--color=selected-bg:#313244 \
 --color=gutter:-1 \
 --no-separator \
+--reverse \
 --multi"
 
 # zoxide
@@ -108,6 +107,7 @@ fi
 if type bat >/dev/null; then
   alias cat='bat'
 fi
+
 
 # zsh plugins
 source $HOME/.config/zsh/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
@@ -224,6 +224,15 @@ function dev() {
         repo_name=${moveto##*/}
         tmux rename-session ${repo_name//./-}
     fi
+}
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 

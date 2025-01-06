@@ -1,0 +1,4 @@
+[plugin]
+append_previewers = [
+  { name = "*", run = "hexyl" },
+]
