@@ -39,6 +39,8 @@ stow .
   - [onefetch](https://github.com/o2sh/onefetch) - Git information tool
   - [delta](https://github.com/dandavison/delta) - A syntax-highlighting pager for git, diff, grep, and blame output
   - [ghq](https://github.com/x-motemen/ghq) - Local Git repository organizer
+  - [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI for git commands
+  - [commitizen](https://commitizen-tools.github.io/commitizen) - Create committing rules for projects, auto bump versions, and auto changelog generation
 - Others
   - [zoxide](https://github.com/ajeetdsouza/zoxide) - `cd` replacement
   - [eza](https://github.com/eza-community/eza) - `ls` replacement
