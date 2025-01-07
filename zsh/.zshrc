@@ -35,21 +35,6 @@ setopt hist_ignore_all_dups
 setopt append_history
 setopt share_history
 
-# completion
-setopt prompt_subst
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' menu select
-zstyle ':completion:*' list-suffixes
-zstyle ':completion:*' expand prefix suffix
-
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-compinit
-
-# source <(docker completion zsh)
-# source <(kubectl completion zsh)
-# complete -C '/usr/local/bin/aws_completer' aws
-
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -66,6 +51,27 @@ addToPath $HOME/bin
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
 
+# completion
+setopt prompt_subst
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-suffixes
+zstyle ':completion:*' expand prefix suffix
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+
+autoload -U colors
+colors
+
+source <(docker completion zsh)
+source <(kubectl completion zsh)
+
 # starship
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -78,14 +84,16 @@ export RIPGREP_CONFIG_PATH="~/.config/ripgrep/ripgreprc"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS=" \
 --color=query:regular \
---color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
+--color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8,border:#45475a \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f9e2af \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:bold:#f38ba8 \
 --color=selected-bg:#313244 \
 --color=gutter:-1 \
---no-separator \
---reverse \
+--no-separator  \
+--height 90% \
 --multi"
+export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=numbers --line-range :100 {}"'
+
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -103,11 +111,6 @@ if type eza >/dev/null; then
 	alias lla='eza -la --git --icons=auto'
 	alias tree='eza --tree --git --icons=auto'
 fi
-
-if type bat >/dev/null; then
-  alias cat='bat'
-fi
-
 
 # zsh plugins
 source $HOME/.config/zsh/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
@@ -165,7 +168,6 @@ if type pyenv > /dev/null; then
     }
 fi
 
-
 # Node Version Manager 
 # Extracted from https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html
 # Defer initialization of nvm until nvm, node or a node-dependent command is
@@ -183,24 +185,6 @@ if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence __init_nvm)" = "__init_nvm" ]; th
   }
   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
 fi
-
-
-# # default Shell(zsh) => tmux => zsh
-# if [[ $SHLVL == 1 && $TMUX == "" ]]; then
-#   echo -n "attach?(y/n/x): " && read attach
-#   echo $attach
-
-#   if [[ $attach == "x" ]]; then
-#     return
-#   fi
-
-#   # try attache tmux when connect via ssh
-#   if [[ $attach == "y" && "${SSH_CONNECTION-}" != "" ]]; then
-#     tmux a -d || tmux
-#   else
-#     tmux
-#   fi
-# fi
 
 # fzf
 function fzf-history-selection() {
