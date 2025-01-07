@@ -66,9 +66,6 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 
-autoload -U colors
-colors
-
 source <(docker completion zsh)
 source <(kubectl completion zsh)
 
@@ -195,7 +192,6 @@ function fzf-history-selection() {
 
 zle -N fzf-history-selection
 bindkey '^R' fzf-history-selection
-
 
 
 function dev() {
