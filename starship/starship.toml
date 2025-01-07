@@ -10,10 +10,11 @@ $line_break\
 $python\
 $character"""
 
+command_timeout = 3000
 palette = "catppuccin_mocha"
 
 [directory]
-style = "blue"
+style = "bold blue"
 
 [character]
 success_symbol = "[❯](purple)"
@@ -22,7 +23,7 @@ vimcmd_symbol = "[❮](green)"
 
 [git_branch]
 format = "[$branch]($style)"
-style = "bright-black"
+style = "bright-green"
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
