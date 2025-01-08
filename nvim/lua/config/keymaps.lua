@@ -72,3 +72,4 @@ end, { desc = "Toggle Inlay Hints" })
 -- Helix
 keymap.set({ "n", "x" }, "gh", "^")
 keymap.set({ "n", "x" }, "gl", "$")
+keymap.set({ "n", "x" }, "gs", "0")
