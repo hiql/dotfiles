@@ -1,16 +1,3 @@
-# @profiling enable the following when you want to see what is taking a long
-#            time to load.  To use:
-#   - Change this file
-#   - Reload by running `exec zsh`
-#   - Run `zprof` to see the results
-#
-# and another way to track this is
-#
-#   - /usr/bin/time zsh -i -c exit
-#   - for i in $(seq 1 10); do /usr/bin/time /bin/zsh -i -c exit; done;
-#
-# zmodload zsh/zprof
-
 # benchmark zsh
 alias zsh-time="time zsh -i -c exit"
 alias zsh-debug="time ZSH_DEBUG=1 zsh -i -c exit"
@@ -66,8 +53,25 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 
-source <(docker completion zsh)
-source <(kubectl completion zsh)
+if type kubectl > /dev/null; then
+  source <(kubectl completion zsh)
+fi
+
+if type docker > /dev/null; then
+  source <(docker completion zsh)
+fi
+
+# Load known hosts file for auto-completion with ssh and scp commands
+if [ -f ~/.ssh/known_hosts ]; then
+  zstyle ':completion:*' hosts $( sed 's/[, ].*$//' $HOME/.ssh/known_hosts )
+  zstyle ':completion:*:*:(ssh|scp):*:*' hosts `sed 's/^\([^ ,]*\).*$/\1/' ~/.ssh/known_hosts`
+fi
+
+export LSCOLORS='gxfxcxdxbxegedabagacad'
+export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32'
+
+# completion colours
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # starship
 eval "$(starship init zsh)"
@@ -86,11 +90,10 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:bold:#f38ba8 \
 --color=selected-bg:#313244 \
 --color=gutter:-1 \
---no-separator  \
---height 90% \
+--height 100% \
+--border=rounded \
 --multi"
 export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=numbers --line-range :100 {}"'
-
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -128,14 +131,12 @@ if [[ -d "$HOME/.cargo" ]]; then
   addToPath $HOME/.cargo/bin
 fi
 
-# java
-# Try to find jenv, if it's not on the path
+# jenv
 export JENV_ROOT="${JENV_ROOT:=${HOME}/.jenv}"
 if ! type jenv > /dev/null && [ -f "${JENV_ROOT}/bin/jenv" ]; then
     export PATH="${JENV_ROOT}/bin:${PATH}"
 fi
 
-# Lazy load jenv
 if type jenv > /dev/null; then
     export PATH="${JENV_ROOT}/bin:${JENV_ROOT}/shims:${PATH}"
     function jenv() {
@@ -145,14 +146,12 @@ if type jenv > /dev/null; then
     }
 fi
 
-# python
-# Try to find pyenv, if it's not on the path
+# pyenv
 export PYENV_ROOT="${PYENV_ROOT:=${HOME}/.pyenv}"
 if ! type pyenv > /dev/null && [ -f "${PYENV_ROOT}/bin/pyenv" ]; then
     export PATH="${PYENV_ROOT}/bin:${PATH}"
 fi
 
-# Lazy load pyenv
 if type pyenv > /dev/null; then
     export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
     function pyenv() {
@@ -165,11 +164,7 @@ if type pyenv > /dev/null; then
     }
 fi
 
-# Node Version Manager 
-# Extracted from https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html
-# Defer initialization of nvm until nvm, node or a node-dependent command is
-# run. Ensure this block is only run once if .bashrc gets sourced multiple times
-# by checking whether __init_nvm is a function.
+# nvm
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence __init_nvm)" = "__init_nvm" ]; then
   declare -a __node_commands=('nvm' 'node' 'npm' 'npx' 'pnpm' 'yarn')
