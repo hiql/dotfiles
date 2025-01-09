@@ -166,17 +166,14 @@ fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence __init_nvm)" = "__init_nvm" ]; then
-  declare -a __node_commands=('nvm' 'node' 'npm' 'npx' 'pnpm' 'yarn')
-  function __init_nvm() {
-    for i in "${__node_commands[@]}"; do unalias $i; done
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-    unset __node_commands
-    unset -f __init_nvm
-  }
-  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-fi
+function nvm() {
+    echo "NVM not loaded! Loading now..."
+    unset -f nvm
+    export NVM_PREFIX=$(brew --prefix nvm)
+    [ -s "$NVM_PREFIX/nvm.sh" ] && \. "$NVM_PREFIX/nvm.sh"  # This loads nvm
+    [ -s "$NVM_PREFIX/etc/bash_completion.d/nvm" ] && \. "$NVM_PREFIX/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+    nvm "$@"
+}
 
 # fzf
 function fzf-history-selection() {
