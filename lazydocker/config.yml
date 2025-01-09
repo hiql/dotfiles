@@ -1,0 +1,18 @@
+gui:
+  returnImmediately: false
+  containerStatusHealthStyle: "icon"
+  showBottomLine: false
+  # Catppuccin Mocha Blue theme
+  theme:
+    activeBorderColor:
+      - "#89b4fa"
+      - bold
+    inactiveBorderColor:
+      - "#a6adc8"
+    optionsTextColor:
+      - "#89b4fa"
+    selectedLineBgColor:
+      - "#313244"
+
+commandTemplates:
+  dockerCompose: docker compose
