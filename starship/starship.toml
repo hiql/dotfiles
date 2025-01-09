@@ -1,3 +1,8 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+palette = "catppuccin_mocha"
+add_newline = true
+command_timeout = 3000
 format = """
 $username\
 $hostname\
@@ -7,14 +12,13 @@ $git_state\
 $git_status\
 $cmd_duration\
 $line_break\
+$jobs\
 $python\
 $character"""
 
-command_timeout = 3000
-palette = "catppuccin_mocha"
-
 [directory]
 style = "bold blue"
+read_only = " 󰌾"
 
 [character]
 success_symbol = "[❯](purple)"
@@ -22,8 +26,8 @@ error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-green"
+format = "[$symbol$branch]($style)"
+style = "bright-black"
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
@@ -44,10 +48,15 @@ style = "bright-black"
 format = "[$duration]($style) "
 style = "yellow"
 
+[jobs]
+symbol = '+'
+style = "cyan"
+number_threshold = 2
+symbol_threshold = 1
+
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
-
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
