@@ -53,11 +53,11 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 
-if type kubectl > /dev/null; then
+if type kubectl &>/dev/null; then
   source <(kubectl completion zsh)
 fi
 
-if type docker > /dev/null; then
+if type docker &>/dev/null; then
   source <(docker completion zsh)
 fi
 
@@ -106,7 +106,7 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 
-if type eza >/dev/null; then
+if type eza &>/dev/null; then
 	alias ll='eza -l --git --icons=auto'
 	alias lla='eza -la --git --icons=auto'
 	alias tree='eza --tree --git --icons=auto'
@@ -124,7 +124,9 @@ bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 
 # thefuck
-eval "$(thefuck --alias)"
+if type thefuck &> /dev/null; then
+  eval "$(thefuck --alias)"
+fi
 
 # rust
 if [[ -d "$HOME/.cargo" ]]; then
@@ -187,7 +189,7 @@ bindkey '^R' fzf-history-selection
 
 
 function dev() {
-    moveto=$(ghq root)/$(ghq list | fzf)
+    local moveto=$(ghq root)/$(ghq list | fzf)
     cd $moveto
 
     # rename session if in tmux
@@ -197,6 +199,44 @@ function dev() {
         tmux rename-session ${repo_name//./-}
     fi
 }
+
+#-----------------------------------------------------------------------------#
+# Function to handle directory changes using fzf
+function _fzf_change_directory {
+    local foo
+    foo=$(printf "%s\n" "${directories[@]}" | fzf --prompt="🗂 Select Directory → " --height=100% --layout=reverse --border --exit-0)
+    if [ "$foo" ]; then
+        builtin cd "$foo"
+    fi
+
+    # rename session if in tmux
+    if [[ ! -z ${TMUX} ]]
+    then
+        repo_name=${foo##*/}
+        tmux rename-session ${repo_name//./-}
+    fi
+}
+
+# Main function to list and navigate directories using fzf
+function fzf_change_directory {
+    local directories
+    directories=($(echo "$HOME/.config"
+        [ -d "$(ghq root)" ] && find "$(ghq root)" -maxdepth 4 -type d -name .git | sed 's/\/\.git//'
+        ls -ad */ | perl -pe "s#^#$PWD/#" | grep -v \.git
+        if [ -d "$HOME/workspace" ]; then
+            ls -ad $HOME/workspace/*/* | grep -v \.git
+        fi
+    ))
+
+    if [ ${#directories[@]} -eq 0 ]; then
+        echo "No directories found!"
+        return
+    fi
+
+    _fzf_change_directory
+}
+
+
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
