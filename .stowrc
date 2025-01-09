@@ -6,5 +6,3 @@
 --ignore=README.md
 --ignore=setup.sh
 --ignore=.zshenv
---ignore=.gitignore
---ignore=.git/*
