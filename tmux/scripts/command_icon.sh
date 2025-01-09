@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
 NAME=$1
-SHOW_NAME="$(tmux show -gqv '@tmux-icon-window-show-name')"
 
 function get_shell_icon() {
   local default_shell_icon="󰙵"
   local shell_icon
-  shell_icon="$(tmux show -gqv '@tmux-icon-window-shell-icon')"
+  shell_icon="$(tmux show -gqv '@tmux-icon-shell-icon')"
   if [ "$shell_icon" != "" ]; then
     echo "$shell_icon"
   else
@@ -70,19 +69,9 @@ get_icon() {
     echo "󱃾"
     ;;
   *)
-    if [ "$SHOW_NAME" = true ]; then
-      echo ""
-    else
-      echo "$NAME"
-    fi
+    echo "󱕷"
     ;;
   esac
 }
 
-ICON=$(get_icon)
-
-if [ "$SHOW_NAME" = true ]; then
-  echo "$ICON" "$NAME"
-else
-  echo "$ICON"
-fi
+echo $(get_icon)

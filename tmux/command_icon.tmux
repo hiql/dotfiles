@@ -3,12 +3,12 @@
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$CURRENT_DIR/scripts/helpers.sh"
 
-pane_current_command_icon="#($CURRENT_DIR/scripts/pane_current_command_icon.sh #{pane_current_command})"
-pane_current_command_icon_interpolation="\#{pane_current_command_icon}"
+command_icon="#($CURRENT_DIR/scripts/command_icon.sh #{pane_current_command})"
+command_icon_interpolation="\#{command_icon}"
 
 do_interpolation() {
   local output="$1"
-  local output="${output/$pane_current_command_icon_interpolation/$pane_current_command_icon}"
+  local output="${output/$command_icon_interpolation/$command_icon}"
   echo "$output"
 }
 
