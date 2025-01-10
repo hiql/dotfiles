@@ -7,6 +7,7 @@ My personal dotfiles
 ![terminal screenshot](images/screenshot-ghostty.jpg)
 
 ## Install with stow:
+
 ```bash
 stow .
 ```
@@ -35,7 +36,6 @@ stow .
   - [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) - Nerd Fonts
 - Git
   - [git-lfs](https://git-lfs.com) - Git extension for versioning large files
-  - [gitui](https://github.com/extrawurst/gitui) - Git ui for the terminal
   - [onefetch](https://github.com/o2sh/onefetch) - Git information tool
   - [delta](https://github.com/dandavison/delta) - A syntax-highlighting pager for git, diff, grep, and blame output
   - [ghq](https://github.com/x-motemen/ghq) - Local Git repository organizer
@@ -52,6 +52,7 @@ stow .
   - [gping](https://github.com/orf/gping) - Ping, but with a graph
   - [fzf](https://github.com/junegunn/fzf) - Command-line fuzzy finder
   - [ripgrep](https://github.com/BurntSushi/ripgrep) - Search tool
+  - [ast-grep](https://github.com/ast-grep/ast-grep) - Code searching, linting, rewriting
   - [hurl](https://hurl.dev) - Run and test HTTP requests
   - [hyperfine](https://github.com/sharkdp/hyperfine) - Benchmarking tool
   - [tailspin](https://github.com/bensadeh/tailspin) - A log file highlighter
@@ -71,3 +72,5 @@ stow .
   - [bandwhich](https://github.com/imsnif/bandwhich) - Terminal bandwidth utilization tool
   - [tokei](https://github.com/XAMPPRocky/tokei) - Count your code
   - [ctop](https://ctop.sh) - concise commandline monitoring for containers
+- MacOS
+  - [OrbStack](https://orbstack.dev) - Replacement for Docker Desktop
