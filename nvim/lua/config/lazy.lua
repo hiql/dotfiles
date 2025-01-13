@@ -91,8 +91,6 @@ require("lazy").setup({
 	},
 	ui = {
 		border = "rounded",
-		title = " LazyVim ",
-		title_pos = "center",
 		custom_keys = {
 			["<localleader>d"] = function(plugin)
 				dd(plugin)
