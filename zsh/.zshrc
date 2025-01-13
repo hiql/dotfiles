@@ -96,19 +96,18 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_DEFAULT_OPTS=" \
   --color=query:regular \
   --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8,border:#45475a \
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#89b4fa \
+  --color=fg:#cdd6f4,header:#89b4fa,info:#cba6f7,pointer:#89b4fa \
   --color=marker:#fab387,fg+:#f9e2af,prompt:#cba6f7,hl+:bold:#f38ba8 \
   --color=gutter:-1 \
   --height 100% \
   --border=rounded \
   --multi"
-export FZF_CTRL_T_OPTS='--border-label="[ File Explorer ]" --info=inline-right --preview "bat --color=always --style=numbers --line-range :100 {}"'
+export FZF_CTRL_T_OPTS='--border-label=" File Explorer " --preview "bat --color=always --style=numbers --line-range :100 {}"'
 export FZF_CTRL_R_OPTS=" \
-  --reverse --info=inline-right --prompt=' ' \
-  --border-label='[ HISTORY ]' --preview 'echo {}' \
+  --reverse --border-label=' Command History ' \
+  --preview 'echo {}' \
   --bind 'ctrl-/:toggle-preview' \
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
-  --color header:italic \
   --header 'ctrl+y: copy command into clipboard, ctrl+/: toggle preview'  \
   --preview-window bottom:3:hidden:wrap"
 
@@ -198,9 +197,9 @@ function nvm() {
 # process
 function fzf-process-selection() {
   local current_buffer=$BUFFER
-  local pids=`ps -A -opid,command | fzf --multi --reverse --header-lines=1 --info=inline-right \
+  local pids=`ps -A -opid,command | fzf --multi --reverse --header-lines=1 \
     --preview="ps -o 'pid,ppid=PARENT,user,%cpu,rss=RSS_IN_KB,start=START_TIME,command' -p {1} || echo 'Cannot preview {1} because it exited.'" \
-    --preview-window="bottom:4:wrap" --prompt="Processes> " --border-label="[ PROCESSES ]" | awk '{print $1}' | tr '\n' ' '` 
+    --preview-window="bottom:4:wrap" --border-label=" Processes " | awk '{print $1}' | tr '\n' ' '` 
   BUFFER="${current_buffer}${pids}"
   CURSOR=$#BUFFER
 }
@@ -211,7 +210,7 @@ bindkey '^p' fzf-process-selection
 # ssh
 function fzf-ssh-selection() {
   local selected_host=$(grep "Host " $HOME/.ssh/config | grep -v '*' | cut -b 6- | \
-    fzf -d --info=inline-right --reverse --border-label="[ SSH ]" --prompt="ssh> " --query "$LBUFFER")
+    fzf -d --reverse --border-label=" SSH " --query "$LBUFFER")
   if [ -n "$selected_host" ]; then
     BUFFER="ssh ${selected_host}"
     zle accept-line
@@ -227,8 +226,8 @@ function gi() {
     echo "Fetch language list from www.gitignore.io..."
     local languages=$(curl -sL https://www.gitignore.io/api/list)
     local selected_langs=$(echo $languages | sed -e 's/,/\n/g' | \
-      fzf -i --no-sort --reverse --multi --info=inline-right \
-          --border-label="[ .gitignore ]" --prompt="Select Language> " )
+      fzf -i --no-sort --reverse --multi \
+          --border-label=" .gitignore " --prompt="Select Languages> " )
     local query_param="${selected_langs//$'\n'/,}"
 
     if [ -n "$query_param" ]; then
@@ -262,12 +261,10 @@ function dev {
     fi
 
     local moveto=$(printf "%s\n" "${directories[@]}" | fzf +m \
-      --info=inline-right \
-      --prompt="Select Project  " \
+      --prompt="Projects> " \
       --preview='ls -AF1 --color=always {}' \
-      --border-label='[ DEVELOPMENT ]' \
+      --border-label=' Development ' \
       --preview-window=right,30% \
-      --preview-label="[ Files ]" \
       --reverse \
       --height=100% \
       --border \
