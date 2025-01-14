@@ -57,10 +57,10 @@
 	commit-decoration-style = box ul
 	dark = true
 	file-decoration-style = "#cdd6f4"
-	file-style = "#cdd6f4"
-	hunk-header-decoration-style = box ul
+	file-style = "#f9e2af"
+	hunk-header-decoration-style = box ul "#cba6f7"
 	hunk-header-file-style = bold
-	hunk-header-line-number-style = bold "#a6adc8"
+	hunk-header-line-number-style = bold "#f9e2af"
 	hunk-header-style = file line-number syntax
 	line-numbers-left-style = "#6c7086"
 	line-numbers-minus-style = bold "#f38ba8"
