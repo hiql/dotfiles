@@ -68,21 +68,24 @@ return {
 		  end
 		end,
 		opts = function()
-					
+			-- Eviline config for lualine
+			-- Author: shadmansaleh
+			-- Credit: glepnir
+
 			-- Color table for highlights
 			-- stylua: ignore
 			local colors = {
-				bg       = '#1e1e2e',
-				fg       = '#bbc2cf',
-				yellow   = '#ECBE7B',
-				cyan     = '#008080',
-				darkblue = '#081633',
-				green    = '#98be65',
-				orange   = '#FF8800',
-				violet   = '#a9a1e1',
-				magenta  = '#c678dd',
-				blue     = '#51afef',
-				red      = '#ec5f67',
+			bg       = '#1e1e2e',
+			fg       = '#cdd6f4',
+			yellow   = '#f9e2af',
+			cyan     = '#94e2d5',
+			darkblue = '#89b4fa',
+			green    = '#a6e3a1',
+			orange   = '#fab387',
+			violet   = '#f5c2e7',
+			magenta  = '#cba6f7',
+			blue     = '#89b4fa',
+			red      = '#f38ba8',
 			}
 
 			local conditions = {
@@ -186,13 +189,11 @@ return {
 				padding = { right = 1 },
 			}
 
-			-- ins_left {
-			-- 	-- filesize component
-			-- 	'filesize',
-			-- 	cond = conditions.buffer_not_empty,
-			-- }
-
-			
+			ins_left {
+				-- filesize component
+				'filesize',
+				cond = conditions.buffer_not_empty,
+			}
 
 			ins_left {
 				'filename',
@@ -200,7 +201,9 @@ return {
 				color = { fg = colors.magenta, gui = 'bold' },
 			}
 
+			ins_left { 'location' }
 
+			ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 
 			ins_left {
 				'diagnostics',
@@ -221,23 +224,47 @@ return {
 				end,
 			}
 
+			ins_left {
+				-- Lsp server name .
+				function()
+					local msg = 'No Active Lsp'
+					local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+					local clients = vim.lsp.get_clients()
+					if next(clients) == nil then
+					return msg
+					end
+					for _, client in ipairs(clients) do
+					local filetypes = client.config.filetypes
+					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+						return client.name
+					end
+					end
+					return msg
+				end,
+				icon = ' LSP:',
+				color = { fg = '#ffffff', gui = 'bold' },
+			}
 
-			-- -- Add components to right sections
-			-- ins_right {
-			-- 	'o:encoding', -- option component same as &encoding in viml
-			-- 	fmt = string.upper, -- I'm not sure why it's upper case either ;)
-			-- 	cond = conditions.hide_in_width,
-			-- 	color = { fg = colors.green, gui = 'bold' },
-			-- }
+			-- Add components to right sections
+			ins_right {
+				'o:encoding', -- option component same as &encoding in viml
+				fmt = string.upper, -- I'm not sure why it's upper case either ;)
+				cond = conditions.hide_in_width,
+				color = { fg = colors.green, gui = 'bold' },
+			}
 
-			-- ins_right {
-			-- 	'fileformat',
-			-- 	fmt = string.upper,
-			-- 	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-			-- 	color = { fg = colors.green, gui = 'bold' },
-			-- }
+			ins_right {
+				'fileformat',
+				fmt = string.upper,
+				icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+				color = { fg = colors.green, gui = 'bold' },
+			}
 
-			
+			ins_right {
+				'branch',
+				icon = '',
+				color = { fg = colors.violet, gui = 'bold' },
+			}
 
 			ins_right {
 				'diff',
@@ -252,23 +279,14 @@ return {
 			}
 
 			ins_right {
-				'branch',
-				icon = '',
-				color = { fg = colors.violet, gui = 'bold' },
-			}
-
-			ins_right { 'location' }
-			ins_right { 'progress', color = { fg = colors.fg } }
-
-			ins_right {
 				function()
 					return '▊'
 				end,
 				color = { fg = colors.blue },
 				padding = { left = 1 },
 			}
- 
-		  	return config
+
+			return config
 		end,
 	},
 
@@ -288,67 +306,6 @@ return {
 				show_close_icon = false,
 			},
 		},
-	},
-
-	-- filename
-	{
-		"b0o/incline.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		event = "BufReadPre",
-		priority = 1200,
-		config = function()
-			local helpers = require("incline.helpers")
-			local devicons = require("nvim-web-devicons")
-			require("incline").setup({
-				highlight = {
-					groups = {
-						InclineNormal = { guifg = "#181926", guibg = "#cba6f7", gui = "bold" },
-						InclineNormalNC = { guibg = "#45475a", guifg = "#aeafb0" },
-					},
-				},
-				window = {
-					padding = 0,
-					margin = { vertical = 0, horizontal = 0 },
-					overlap = {
-						borders = false,
-						statusline = false,
-						tabline = false,
-						winbar = false,
-					},
-				},
-				hide = {
-					cursorline = true,
-				},
-				render = function(props)
-					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-					if filename == "" then
-						filename = "[No Name]"
-					end
-					local ft_icon, ft_color = devicons.get_icon_color(filename)
-					if not props.focused then
-						ft_color = "#313244"
-					end
-					local modified = vim.bo[props.buf].modified
-					if modified then
-						filename = "[+] " .. filename
-					end
-					local buffer = {
-						ft_icon and {
-							" ",
-							ft_icon,
-							" ",
-							guibg = ft_color,
-							guifg = helpers.contrast_color(ft_color),
-						} or "",
-						" ",
-						{ filename, gui = modified and "bold,italic" or "" },
-						" ",
-						guibg = "none",
-					}
-					return buffer
-				end,
-			})
-		end,
 	},
 
 	{
@@ -380,14 +337,6 @@ return {
 			quickfile = { enabled = true },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
-			zen = {
-				on_open = function()
-					require("incline").disable()
-				end,
-				on_close = function()
-					require("incline").enable()
-				end,
-			},
 			dashboard = {
 				preset = {
 					header = [[
