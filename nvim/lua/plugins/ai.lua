@@ -1,5 +1,5 @@
 return {
-    {
+	{
 		"yetone/avante.nvim",
 		event = "VeryLazy",
 		lazy = false,
@@ -34,17 +34,16 @@ return {
 			},
 		},
 		dependencies = {
-
 			"stevearc/dressing.nvim",
 			"MunifTanjim/nui.nvim",
 			{
-                -- Make sure to set this up properly if you have lazy=true
-                'MeanderingProgrammer/render-markdown.nvim',
-                opts = {
-                    file_types = { "markdown", "Avante" },
-                },
-                ft = { "markdown", "Avante" },
-            },
+				-- Make sure to set this up properly if you have lazy=true
+				'MeanderingProgrammer/render-markdown.nvim',
+				opts = {
+					file_types = { "Avante" },
+				},
+				ft = { "Avante" },
+			},
 		},
 	}
 }
