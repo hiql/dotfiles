@@ -6,7 +6,7 @@ font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-background-opacity = 0.9
+background-opacity = 0.95
 background-blur-radius = 20
 window-padding-x = 5
 window-padding-y = 5
