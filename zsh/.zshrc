@@ -224,7 +224,7 @@ bindkey '^p' fzf-process-selection
 function fzf-git-log() {
   git log --graph --color=always --date=short \
     --format="%C(auto)%h%C(auto)%d %s %C(blue)%cd %C(black)%C(bold)<%an>" "$@" | \
-  fzf --prompt="git log > " --ansi --no-sort --reverse --tiebreak=index \
+  fzf --prompt="git log > " --ansi --no-sort --tiebreak=index \
     --bind=ctrl-f:page-down,ctrl-b:page-up \
     --bind=ctrl-s:toggle-sort \
     --bind "ctrl-m:execute:
