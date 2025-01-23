@@ -11,7 +11,7 @@ return {
 				ollama = {
 					api_key_name = "",
 					endpoint = "http://127.0.0.1:11434/v1",
-					model = "phi3:latest",
+					model = "phi3.5:latest",
 					parse_curl_args = function(opts, code_opts)
 						return {
 							url = opts.endpoint .. "/chat/completions",
@@ -38,12 +38,12 @@ return {
 			"MunifTanjim/nui.nvim",
 			{
 				-- Make sure to set this up properly if you have lazy=true
-				'MeanderingProgrammer/render-markdown.nvim',
+				"MeanderingProgrammer/render-markdown.nvim",
 				opts = {
 					file_types = { "Avante" },
 				},
 				ft = { "Avante" },
 			},
 		},
-	}
+	},
 }
