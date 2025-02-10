@@ -261,7 +261,7 @@ return {
 		"akinsho/bufferline.nvim",
 		event = "VeryLazy",
 		keys = {
-			{ "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+			{ "<Tab>",   "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
 			{ "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
 		},
 		opts = {
@@ -272,6 +272,67 @@ return {
 				show_close_icon = false,
 			},
 		},
+	},
+
+	-- filename
+	{
+		"b0o/incline.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "BufReadPre",
+		priority = 1200,
+		config = function()
+			local helpers = require("incline.helpers")
+			local devicons = require("nvim-web-devicons")
+			require("incline").setup({
+				highlight = {
+					groups = {
+						InclineNormal = { guifg = "#1e1e2e", guibg = "#f5e0dc" },
+						InclineNormalNC = { guibg = "#313244", guifg = "#a6adc8" },
+					},
+				},
+				window = {
+					padding = 0,
+					margin = { vertical = 0, horizontal = 0 },
+					overlap = {
+						borders = false,
+						statusline = false,
+						tabline = false,
+						winbar = false,
+					},
+				},
+				hide = {
+					cursorline = true,
+				},
+				render = function(props)
+					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+					if filename == "" then
+						filename = "[No Name]"
+					end
+					local ft_icon, ft_color = devicons.get_icon_color(filename)
+					if not props.focused then
+						ft_color = "#24273a"
+					end
+					local modified = vim.bo[props.buf].modified
+					if modified then
+						filename = "[+] " .. filename
+					end
+					local buffer = {
+						ft_icon and {
+							" ",
+							ft_icon,
+							" ",
+							guibg = ft_color,
+							guifg = helpers.contrast_color(ft_color),
+						} or "",
+						" ",
+						{ filename, gui = modified and "bold" or "" },
+						" ",
+						guibg = "none",
+					}
+					return buffer
+				end,
+			})
+		end,
 	},
 
 	{
@@ -285,10 +346,10 @@ return {
 			"TmuxNavigatorProcessList",
 		},
 		keys = {
-			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
 			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
 		},
 	},
@@ -306,22 +367,20 @@ return {
 			dashboard = {
 				preset = {
 					header = [[
-                   ,,
-      __         o-°°|\_____/)
- (___()'`; NEOVIM \_/|_)     )
- /,    /`            \  __  /
- \\"--\\             (_/ (_/
- Talk is cheap, show me your code.
-]],
+¯\_(ツ)_/¯
+🅽 🅴 🅾 🆅 🅸 🅼
+Talk is cheap, show me your code.]],
 				},
 			},
 			scroll = { enabled = false },
 			scope = { enabled = true },
 			zen = {
 				on_open = function()
+					require("incline").disable()
 					vim.system({ "tmux", "set", "status", "off" })
 				end,
 				on_close = function()
+					require("incline").enable()
 					vim.system({ "tmux", "set", "status", "on" })
 				end,
 			},
