@@ -102,7 +102,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_DEFAULT_OPTS='
   --color=query:regular
   --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8,border:#45475a
-  --color=fg:#cdd6f4,header:#89dceb,info:#f9e2af,pointer:#f5e0dc
+  --color=fg:#cdd6f4,header:#89dceb,info:#f9e2af,pointer:#f38ba8
   --color=marker:#a6e3a1,fg+:#cdd6f4,prompt:#cba6f7,hl+:bold:#f38ba8
   --color=gutter:-1
   --border=rounded
@@ -251,7 +251,16 @@ function fzf-dev-widget {
     return
   fi
 
-  local moveto=$(printf "%s\n" "${directories[@]}" | fzf +m \
+
+  local new_dirs=()
+  for dir in "${directories[@]}"; do
+    local parent_dir=$(dirname "$dir")
+    local base_name=$(basename "$dir")
+    new_dirs+=("$parent_dir/\033[1m\033[33m$base_name\033[0m")
+  done
+
+  # local moveto=$(printf "%s\n" "${new_dirs[@]}" | fzf +m --ansi \
+  local moveto=$(print -l "${new_dirs[@]}" | fzf +m --ansi \
     --reverse \
     --preview="ls -AF1 --color=always {}" \
     --prompt="Workspace> " \
