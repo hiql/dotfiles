@@ -18,3 +18,4 @@ cursor-style = block
 cursor-style-blink = true
 macos-titlebar-style = hidden
 macos-option-as-alt = true
+macos-icon = holographic
