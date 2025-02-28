@@ -60,6 +60,11 @@ keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 
+-- Helix
+keymap.set({ "n", "x" }, "gh", "^")
+keymap.set({ "n", "x" }, "gl", "$")
+keymap.set({ "n", "x" }, "gs", "0")
+
 -- Diagnostics
 keymap.set("n", "<C-j>", function()
 	vim.diagnostic.goto_next()
@@ -69,7 +74,6 @@ keymap.set("n", "<leader>i", function()
 	require("custom.lsp").toggleInlayHints()
 end, { desc = "Toggle Inlay Hints" })
 
--- Helix
-keymap.set({ "n", "x" }, "gh", "^")
-keymap.set({ "n", "x" }, "gl", "$")
-keymap.set({ "n", "x" }, "gs", "0")
+vim.api.nvim_create_user_command("ToggleAutoformat", function()
+	require("custom.lsp").toggleAutoformat()
+end, {})
