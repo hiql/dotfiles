@@ -1,10 +1,22 @@
-[plugin]
-deps = [
-    { use = "yazi-rs/plugins:full-border", rev = "c7feb90" },
-    { use = "yazi-rs/plugins:git", rev = "71c4fc2" },
-    { use = "Reledia/glow", rev = "c2ed51e" },
-    { use = "Reledia/hexyl", rev = "39d3d4e" },
-]
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "c7feb90"
+hash = "a61bb2d21a08bf1d18f0a549e5eb1475"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "71c4fc2"
+hash = "e9cf1bfc03de7fee0f1d4260da0d1dfd"
+
+[[plugin.deps]]
+use = "Reledia/glow"
+rev = "c2ed51e"
+hash = "136ce00885041aeee5cf582ccf7a46dc"
+
+[[plugin.deps]]
+use = "Reledia/hexyl"
+rev = "39d3d4e"
+hash = ""
 
 [flavor]
 deps = []
