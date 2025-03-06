@@ -111,7 +111,7 @@ return {
 		build = "make",
 		opts = {
 			auto_suggestions_provider = "ollama",
-			debug = true,
+			debug = false,
 			provider = "ollama",
 			vendors = {
 				ollama = ollama,
