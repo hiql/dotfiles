@@ -136,11 +136,9 @@ Talk is cheap, show me your code.]],
 			scope = { enabled = true },
 			zen = {
 				on_open = function()
-					require("incline").disable()
 					vim.system({ "tmux", "set", "status", "off" })
 				end,
 				on_close = function()
-					require("incline").enable()
 					vim.system({ "tmux", "set", "status", "on" })
 				end,
 			},
