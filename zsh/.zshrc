@@ -45,6 +45,7 @@ function addToPath {
 }
 
 addToPath $HOME/bin
+addToPath $HOME/.local/bin
 
 # homebrew
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
