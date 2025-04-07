@@ -102,14 +102,14 @@ export RIPGREP_CONFIG_PATH="~/.config/ripgrep/ripgreprc"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='
   --color=query:regular
-  --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8,border:#45475a
+  --color=bg+:-1,spinner:#f5e0dc,hl:#f38ba8,border:#45475a
   --color=fg:#cdd6f4,header:#89dceb,info:#f9e2af,pointer:#f38ba8
-  --color=marker:#a6e3a1,fg+:#cdd6f4,prompt:#cba6f7,hl+:bold:#f38ba8
+  --color=marker:#a6e3a1,fg+:#f5c2e7,prompt:#cba6f7,hl+:bold:#f38ba8
   --color=gutter:-1
   --border=rounded
   --no-separator
   --marker="✓ "
-  --pointer="▶"
+  --pointer="»"
   --cycle
   --multi'
 
@@ -257,7 +257,7 @@ function fzf-dev-widget {
   for dir in "${directories[@]}"; do
     local parent_dir=$(dirname "$dir")
     local base_name=$(basename "$dir")
-    new_dirs+=("$parent_dir/\033[1m\033[33m$base_name\033[0m")
+    new_dirs+=("$parent_dir\033[1m/$base_name\033[0m")
   done
 
   # local moveto=$(printf "%s\n" "${new_dirs[@]}" | fzf +m --ansi \
@@ -265,7 +265,7 @@ function fzf-dev-widget {
     --reverse \
     --preview="ls -AF1 --color=always {}" \
     --prompt="Workspace> " \
-    --preview-window=right:30%:hidden:wrap \
+    --preview-window=right:30%:wrap \
     --bind="ctrl-/:toggle-preview" \
     --bind "ctrl-y:execute-silent(echo -n {} | pbcopy)+abort" \
     --header=$'ctrl+y: copy path to clipboard  ctrl+/: toggle preview\n\n' \
