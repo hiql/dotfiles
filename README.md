@@ -18,14 +18,13 @@ stow .
 - [Yazi](https://yazi-rs.github.io/) - Ranger-like terminal file manager
 - System Info
   - [bottom](https://github.com/ClementTsang/bottom) - System monitor for the terminal
+  - [nvtop](https://github.com/Syllo/nvtop) - GPU & Accelerator process monitoring
   - [fastfetch](https://github.com/fastfetch-cli/fastfetch) - System information tool
   - [cpufetch](https://github.com/Dr-Noob/cpufetch) - CPU information tool
-- Fish Shell
-  - [fish](https://fishshell.com/) - Command line shell
-  - [fisher](https://github.com/jorgebucaran/fisher) - A plugin manager for Fish
-  - [fzf.fish](https://github.com/PatrickF1/fzf.fish) - Interactive filtering
-  - [z](https://github.com/jethrokuan/z) - Directory jumping for Fish
-  - [tide](https://github.com/IlanCosman/tide) - Fish shell prompt
+- Zsh Shell
+  - [zsh](https://www.zsh.org) - Shell
+  - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - Fish shell like syntax highlighting for Zsh
+  - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish-like autosuggestions for zsh
 - Editor
   - [neovim](https://neovim.io) - Vim-based text editor
   - [LazyVim](https://www.lazyvim.org) - Neovim config for the lazy
@@ -72,5 +71,15 @@ stow .
   - [bandwhich](https://github.com/imsnif/bandwhich) - Terminal bandwidth utilization tool
   - [tokei](https://github.com/XAMPPRocky/tokei) - Count your code
   - [ctop](https://ctop.sh) - concise commandline monitoring for containers
+  - [just](https://just.systems) - Just a command runner
 - MacOS
+  - [AppCleaner](https://freemacsoft.net/appcleaner) - Uninstall mac apps
+  - [IINA](https://iina.io) - Media player
+  - [Figma](https://www.figma.com) - Design tool
   - [OrbStack](https://orbstack.dev) - Replacement for Docker Desktop
+  - [Windows App](https://aka.ms/WindowsApp) - Connect to Windows
+  - [LogSeq](https://logseq.com) - Note-Taking app
+  - [Typora](https://typora.io) - Markdown Editor
+  - [Xmind](https://www.xmind.net) - Mind mapping and brainstorming tool
+  - [Ollama](https://ollama.com) - Create, run, and share large language models (LLMs)
+  - [SpaceDrive](https://www.spacedrive.com) - Cross-platform file explorer
