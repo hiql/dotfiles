@@ -102,14 +102,15 @@ export RIPGREP_CONFIG_PATH="~/.config/ripgrep/ripgreprc"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='
   --color=query:regular
-  --color=bg+:-1,spinner:#f5e0dc,hl:#f38ba8,border:#45475a
+  --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8,border:#45475a
   --color=fg:#cdd6f4,header:#89dceb,info:#f9e2af,pointer:#f38ba8
   --color=marker:#a6e3a1,fg+:#f5c2e7,prompt:#cba6f7,hl+:bold:#f38ba8
   --color=gutter:-1
   --border=rounded
   --no-separator
+  --highlight-line
   --marker="✓ "
-  --pointer="»"
+  --pointer=" »"
   --cycle
   --multi'
 
