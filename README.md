@@ -4,7 +4,7 @@ My personal dotfiles
 
 **Warning**: Don’t blindly use my settings. Just as a reference!
 
-![terminal screenshot](images/screenshot-ghostty.jpg)
+![terminal screenshot](images/screenshot2.jpg)
 
 ## Install with stow:
 
@@ -37,6 +37,7 @@ stow .
   - [git-lfs](https://git-lfs.com) - Git extension for versioning large files
   - [onefetch](https://github.com/o2sh/onefetch) - Git information tool
   - [delta](https://github.com/dandavison/delta) - A syntax-highlighting pager for git, diff, grep, and blame output
+  - [gh](https://cli.github.com) - GitHub CLI
   - [ghq](https://github.com/x-motemen/ghq) - Local Git repository organizer
   - [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI for git commands
   - [commitizen](https://commitizen-tools.github.io/commitizen) - Create committing rules for projects, auto bump versions, and auto changelog generation
