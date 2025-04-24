@@ -6,9 +6,9 @@ config:
 
 icons:
   vim: ""
-  nvim: ""
+  nvim: ""
   nano: ""
-  bash: ""
+  bash: "󱆃"
   htop: "󰓅"
   btm: "󰓅"
   nvtop: ""
@@ -23,4 +23,4 @@ icons:
   bun: ""
   zig: ""
   ssh: ""
-  scp: ""
+  scp: "⥊"
