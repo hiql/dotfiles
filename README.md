@@ -73,6 +73,7 @@ stow .
   - [tokei](https://github.com/XAMPPRocky/tokei) - Count your code
   - [ctop](https://ctop.sh) - concise commandline monitoring for containers
   - [just](https://just.systems) - Just a command runner
+  - [jdex](https://github.com/skylot/jadx) - Dex to Java decompiler
 - MacOS
   - [AppCleaner](https://freemacsoft.net/appcleaner) - Uninstall mac apps
   - [IINA](https://iina.io) - Media player
