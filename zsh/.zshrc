@@ -107,10 +107,8 @@ export FZF_DEFAULT_OPTS='
   --color=marker:#a6e3a1,fg+:#f5c2e7,prompt:#cba6f7,hl+:bold:#f38ba8
   --color=gutter:-1
   --border=rounded
-  --no-separator
-  --highlight-line
-  --marker="✓ "
-  --pointer=" »"
+  --marker="+ "
+  --pointer="▎"
   --cycle
   --multi'
 
@@ -287,6 +285,28 @@ function fzf-dev-widget {
 
 zle -N fzf-dev-widget
 bindkey '^o' fzf-dev-widget
+
+
+function rfv-widget() {
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            nvim {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            nvim +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+    --bind "start:$RELOAD" --bind "change:$RELOAD" \
+    --bind "enter:become:$OPENER" \
+    --bind "ctrl-o:execute:$OPENER" \
+    --delimiter : \
+    --preview 'bat --style=header,header-filesize --color=always --line-range :500 --highlight-line {2} {1}' \
+    --preview-window '~4,+{2}+4/3,<80(up)' \
+    --query "$*"
+}
+
+zle -N rfv-widget
+bindkey '^g' rfv-widget
+
 
 # Generate .gitignore
 function gi() {
