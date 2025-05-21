@@ -239,11 +239,6 @@ function fzf-dev-widget {
     if type ghq > /dev/null && [ -d "$(ghq root)" ]; then
       ghq list --full-path
     fi
-
-    if [ -d "${workspace_dir}/sources" ]; then
-      fd --hidden --prune --type d -d 4 -a --exclude={node_modules,build,target,dist} \
-        '^\.git$' "${workspace_dir}/sources" | sed 's/\/\.git\///' 
-    fi
   ))
 
   if [ ${#directories[@]} -eq 0 ]; then
