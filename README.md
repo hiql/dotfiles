@@ -25,6 +25,7 @@ stow .
   - [zsh](https://www.zsh.org) - Shell
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - Fish shell like syntax highlighting for Zsh
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Fish-like autosuggestions for zsh
+  - [zsh-completions](https://github.com/zsh-users/zsh-completions) - Additional completion definitions for Zsh
 - Editor
   - [neovim](https://neovim.io) - Vim-based text editor
   - [LazyVim](https://www.lazyvim.org) - Neovim config for the lazy
@@ -85,3 +86,4 @@ stow .
   - [Xmind](https://www.xmind.net) - Mind mapping and brainstorming tool
   - [Ollama](https://ollama.com) - Create, run, and share large language models (LLMs)
   - [SpaceDrive](https://www.spacedrive.com) - Cross-platform file explorer
+  - [NetNewsWire](https://netnewswire.com/) - RSS reader
