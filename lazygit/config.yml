@@ -20,17 +20,14 @@ gui:
       - '#cdd6f4'
     searchingActiveBorderColor:
       - '#f9e2af'
-
   authorColors:
     '*': '#b4befe'
-
 os:
   editPreset: "nvim"
-
 customCommands:
   - key: "C"
     command: "git cz c"
     description: "commit with commitizen"
     context: "files"
     loadingText: "opening commitizen commit tool"
-    subprocess: true
+    output: terminal
