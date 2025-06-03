@@ -18,5 +18,15 @@ use = "Reledia/hexyl"
 rev = "39d3d4e"
 hash = ""
 
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "2496cd9"
+hash = "5b9dea47776a30946cfbf83232d18fb1"
+
+[[plugin.deps]]
+use = "pirafrank/what-size"
+rev = "f1c6b69"
+hash = "6e789212eb41d937bab04877ca361099"
+
 [flavor]
 deps = []
