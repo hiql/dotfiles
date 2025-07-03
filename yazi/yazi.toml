@@ -14,7 +14,7 @@ prepend_previewers = [
 	{ mime = "application/xz",              run = "ouch" },
 ]
 
-[manager]
+[mgr]
 linemode = "size"
 
 
