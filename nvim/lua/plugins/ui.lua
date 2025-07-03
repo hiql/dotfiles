@@ -72,50 +72,6 @@ return {
 		},
 	},
 
-	-- filename
-	{
-		"b0o/incline.nvim",
-		event = "BufReadPre",
-		priority = 1200,
-		config = function()
-			local helpers = require("incline.helpers")
-			local devicons = require("nvim-web-devicons")
-			require("incline").setup({
-				window = {
-					padding = 0,
-					margin = { vertical = 1, horizontal = 0 },
-				},
-				hide = {
-					cursorline = true,
-				},
-				render = function(props)
-					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-					if filename == "" then
-						filename = "[No Name]"
-					end
-					local ft_icon, ft_color = devicons.get_icon_color(filename)
-					local modified = vim.bo[props.buf].modified
-					local bg_color = props.focused and "#cdd6f4" or "#313244"
-					return {
-						ft_icon and {
-							" ",
-							ft_icon,
-							" ",
-							guibg = ft_color,
-							guifg = helpers.contrast_color(ft_color),
-						} or "",
-						" ",
-						{ filename, gui = modified and "bold,italic" or "bold" },
-						modified and "[+]" or "",
-						" ",
-						guibg = bg_color,
-						guifg = helpers.contrast_color(bg_color),
-					}
-				end,
-			})
-		end,
-	},
-
 	-- statusline
 	{
 		"nvim-lualine/lualine.nvim",
@@ -181,11 +137,9 @@ Talk is cheap, show me your code.]],
 			zen = {
 				on_open = function()
 					vim.system({ "tmux", "set", "status", "off" })
-					require("incline").disable()
 				end,
 				on_close = function()
 					vim.system({ "tmux", "set", "status", "on" })
-					require("incline").enable()
 				end,
 			},
 		},
