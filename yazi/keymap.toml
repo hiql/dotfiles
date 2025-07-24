@@ -1,4 +1,5 @@
 [mgr]
 prepend_keymap = [
   { on   = [ ".", "s" ], run  = "plugin what-size", desc = "Calc size of selection or cwd" },
+  { on   = [ ".", "." ], run  = "hidden toggle", desc = "Set the visibility of hidden files" },
 ]
