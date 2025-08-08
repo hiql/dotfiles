@@ -113,6 +113,7 @@ export FZF_DEFAULT_OPTS='
   --multi'
 
 # zoxide
+export _ZO_ECHO='1'
 eval "$(zoxide init zsh)"
 
 # alias
