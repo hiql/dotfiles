@@ -58,6 +58,12 @@ return {
 	{
 		"akinsho/bufferline.nvim",
 		event = "VeryLazy",
+		init = function()
+			local bufline = require("catppuccin.groups.integrations.bufferline")
+			function bufline.get()
+				return bufline.get_theme()
+			end
+		end,
 		keys = {
 			{ "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
 			{ "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
@@ -116,11 +122,23 @@ return {
 	},
 
 	{
+		"nvim-neo-tree/neo-tree.nvim",
+		opts = {
+			window = {
+				mappings = {
+					["P"] = { "toggle_preview", config = { use_float = false, use_snacks_image = true } },
+				},
+			},
+		},
+	},
+
+	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
 		opts = {
 			bigfile = { enabled = true },
+			image = {},
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			statuscolumn = { enabled = true },
