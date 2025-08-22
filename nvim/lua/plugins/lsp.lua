@@ -144,6 +144,7 @@ return {
 									["unused"] = "Opened",
 								},
 								unusedLocalExclude = { "_*" },
+								globals = { "vim", "require" }
 							},
 							format = {
 								enable = false,
