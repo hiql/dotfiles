@@ -126,7 +126,7 @@ return {
 		opts = {
 			window = {
 				mappings = {
-					["P"] = { "toggle_preview", config = { use_float = false, use_snacks_image = true } },
+					["P"] = { "toggle_preview", config = { use_float = true, use_snacks_image = true } },
 				},
 			},
 		},
