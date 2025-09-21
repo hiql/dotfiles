@@ -1,11 +1,4 @@
 return {
-	-- {
-	-- 	"echasnovski/mini.hipatterns",
-	-- 	event = "BufReadPre",
-	-- 	opts = {
-	-- 		highlighters = {},
-	-- 	},
-	-- },
 
 	{
 		"brenoprata10/nvim-highlight-colors",
