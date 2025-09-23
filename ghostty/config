@@ -1,7 +1,8 @@
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 font-size = 14
 font-family = JetBrainsMono Nerd Font Mono
+font-family = PingFang SC
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
