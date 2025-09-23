@@ -269,11 +269,11 @@ function fzf-dev-widget {
 
   if [ "$moveto" ]; then
     cd $moveto
-    # rename session if in tmux
-    # if [[ ! -z ${TMUX} ]]; then
-    #   repo_name=${moveto##*/}
-    #   tmux rename-session ${repo_name//./-}
-    # fi
+    rename session if in tmux
+    if [[ ! -z ${TMUX} ]]; then
+      repo_name=${moveto##*/}
+      tmux rename-session ${repo_name//./-}
+    fi
   fi
 
   zle reset-prompt
