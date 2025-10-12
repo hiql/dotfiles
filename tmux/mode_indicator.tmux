@@ -32,10 +32,10 @@ init_tmux_mode_indicator() {
     copy_prompt=$(tmux_option "$copy_prompt_config" " COPY ") \
     sync_prompt=$(tmux_option "$sync_prompt_config" " SYNC ") \
     empty_prompt=$(tmux_option "$empty_prompt_config" " TMUX ") \
-    prefix_style=$(indicator_style "$prefix_mode_style_config" "bg=blue,fg=black") \
-    copy_style=$(indicator_style "$copy_mode_style_config" "bg=yellow,fg=black") \
-    sync_style=$(indicator_style "$sync_mode_style_config" "bg=red,fg=black") \
-    empty_style=$(indicator_style "$empty_mode_style_config" "bg=cyan,fg=black")
+    prefix_style=$(indicator_style "$prefix_mode_style_config" "fg=blue,bg=none") \
+    copy_style=$(indicator_style "$copy_mode_style_config" "fg=yellow,bg=none") \
+    sync_style=$(indicator_style "$sync_mode_style_config" "fg=red,bg=none") \
+    empty_style=$(indicator_style "$empty_mode_style_config" "fg=cyan,bg=none")
 
   local -r \
     custom_prompt="#(tmux show-option -qv $custom_prompt_config)" \
