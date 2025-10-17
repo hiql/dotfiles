@@ -105,10 +105,7 @@ export FZF_DEFAULT_OPTS='
   --color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8,border:#45475a
   --color=fg:#cdd6f4,header:#89dceb,info:#f9e2af,pointer:#f38ba8
   --color=marker:#a6e3a1,fg+:#f5c2e7,prompt:#cba6f7,hl+:bold:#f38ba8
-  --color=gutter:-1
   --border=rounded
-  --marker="+ "
-  --pointer="▎"
   --cycle
   --multi'
 
